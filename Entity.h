@@ -13,6 +13,7 @@ struct Texture
 class Entity
 {
 private:
+
 	COORD position;
 	COORD size;
 	Texture** texture;
@@ -24,7 +25,7 @@ public:
 	virtual ~Entity();
 
 	void Draw();
-	void CheckCollision(Entity entitie);
+	bool CheckCollision(Entity entity);
 	COORD GetPosition() {return position;}
 	COORD GetSize() { return size; }
 };

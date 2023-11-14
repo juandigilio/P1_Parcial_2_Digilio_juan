@@ -42,6 +42,23 @@ Entity::~Entity()
 	cout << "Entity destroyed" << endl;
 }
 
+void Entity::UpdateTexturePositions()
+{
+	COORD aux = position;
+
+	for (int i = 0; i < size.X; i++)
+	{
+		for (int j = 0; j < size.Y; j++)
+		{
+			texture[i][j].position.X = aux.X;
+			texture[i][j].position.Y = aux.Y;
+			aux.X++;
+		}
+		aux.X = position.X;
+		aux.Y++;
+	}
+}
+
 void Entity::Draw()
 {
 	COORD cursorPos = position;
@@ -58,7 +75,29 @@ void Entity::Draw()
 	}
 }
 
-void Entity::CheckCollision(Entity entitie)
+bool Entity::CheckCollision(Entity entity)
 {
+	for (int i = 0; i < size.X; i++)
+	{
+		for (int j = 0; j < size.Y; j++)
+		{
+			for (int k = 0; k < entity.size.X; k++)
+			{
+				for (int l = 0; l < entity.size.Y; l++)
+				{
+					if (texture[i][j].isPainted && entity.texture[k][l].isPainted)
+					{
+						bool x = (texture[i][j].position.X == entity.texture[k][l].position.X);
+						bool y = (texture[i][j].position.Y == entity.texture[k][l].position.Y);
 
+						if (x && y)
+						{
+							return true;
+						}
+					}
+					
+				}
+			}
+		}
+	}
 }
