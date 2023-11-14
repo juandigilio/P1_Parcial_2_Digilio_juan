@@ -12,7 +12,7 @@ struct Texture
 
 class Entity
 {
-private:
+protected:
 
 	COORD position;
 	COORD size;
@@ -24,6 +24,7 @@ public:
 	Entity(COORD position, COORD size, int color);
 	virtual ~Entity();
 
+	void UpdateTexturePositions();
 	void Draw();
 	bool CheckCollision(Entity entity);
 	COORD GetPosition() {return position;}

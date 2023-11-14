@@ -14,7 +14,7 @@ private:
 
 public:
 
-	Player();
+	Player(COORD position, COORD size, int color);
 	~Player();
 
 	void GetInput();
