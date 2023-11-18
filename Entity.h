@@ -26,6 +26,7 @@ public:
 
 	void UpdateTexturePositions();
 	void Draw();
+	void CheckLimits();
 	bool CheckCollision(Entity entity);
 	COORD GetPosition() {return position;}
 	COORD GetSize() { return size; }

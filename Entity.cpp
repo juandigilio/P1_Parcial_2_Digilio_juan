@@ -75,6 +75,31 @@ void Entity::Draw()
 	}
 }
 
+void Entity::CheckLimits()
+{
+	int topLimit = 1;
+	int bottomLimit = ConsoleHandler::consoleHeight - 1;
+	int leftLimit = 1;
+	int rightLimit = ConsoleHandler::consoleWide - 1;
+
+	if (position.Y > bottomLimit)
+	{
+		position.Y = bottomLimit;
+	}
+	if (position.Y < topLimit)
+	{
+		position.Y = topLimit;
+	}
+	if (position.X > rightLimit)
+	{
+		position.X = rightLimit;
+	}
+	if (position.X < leftLimit)
+	{
+		position.X = leftLimit;
+	}
+}
+
 bool Entity::CheckCollision(Entity entity)
 {
 	for (int i = 0; i < size.X; i++)
