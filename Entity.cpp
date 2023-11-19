@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "ConsoleHandler.h"
+
 
 using namespace std;
 
@@ -59,28 +59,12 @@ void Entity::UpdateTexturePositions()
 	}
 }
 
-void Entity::Draw()
-{
-	COORD cursorPos = position;
-
-	for (int i = 0; i < size.X; i++)
-	{
-		for (int j = 0; j < size.Y; j++)
-		{
-			SetConsoleCursorPosition(ConsoleHandler::hwnd, texture[i][j].position);
-			cout << texture[i][j].image;
-		}
-
-		cursorPos.Y++;
-	}
-}
-
-void Entity::CheckLimits()
+void Entity::CheckLimits(ConsoleHandler& console)
 {
 	int topLimit = 1;
-	int bottomLimit = ConsoleHandler::consoleHeight - 1;
+	int bottomLimit = console.consoleHeight - size.Y - 1;
 	int leftLimit = 1;
-	int rightLimit = ConsoleHandler::consoleWide - 1;
+	int rightLimit = console.consoleWide - size.X - 1;
 
 	if (position.Y > bottomLimit)
 	{
@@ -100,20 +84,20 @@ void Entity::CheckLimits()
 	}
 }
 
-bool Entity::CheckCollision(Entity entity)
+bool Entity::CheckCollision(Texture** entity, COORD entitySize)
 {
-	for (int i = 0; i < size.X; i++)
+	for (int i = 0; i < this->size.X; i++)
 	{
-		for (int j = 0; j < size.Y; j++)
+		for (int j = 0; j < this->size.Y; j++)
 		{
-			for (int k = 0; k < entity.size.X; k++)
+			for (int k = 0; k < entitySize.X; k++)
 			{
-				for (int l = 0; l < entity.size.Y; l++)
+				for (int l = 0; l < entitySize.Y; l++)
 				{
-					if (texture[i][j].isPainted && entity.texture[k][l].isPainted)
+					if (this->texture[i][j].isPainted && entity[k][l].isPainted)
 					{
-						bool x = (texture[i][j].position.X == entity.texture[k][l].position.X);
-						bool y = (texture[i][j].position.Y == entity.texture[k][l].position.Y);
+						bool x = (this->texture[i][j].position.X == entity[k][l].position.X);
+						bool y = (this->texture[i][j].position.Y == entity[k][l].position.Y);
 
 						if (x && y)
 						{
@@ -125,4 +109,6 @@ bool Entity::CheckCollision(Entity entity)
 			}
 		}
 	}
+
+	return false;
 }

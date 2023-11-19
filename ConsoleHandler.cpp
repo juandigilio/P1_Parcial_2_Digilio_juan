@@ -2,8 +2,12 @@
 
 #include <iostream>
 
+using namespace std;
+
 ConsoleHandler::ConsoleHandler()
 {
+	consoleWide = 60;
+	consoleHeight = 40;
 	color = 144;
 	hwnd = GetStdHandle(STD_OUTPUT_HANDLE);
 }
@@ -47,4 +51,158 @@ void ConsoleHandler::SetConsoleFont(int wide, int height)
 
 	wcscpy_s(cfi.FaceName, L"Lucida Console");
 	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
+}
+
+void ConsoleHandler::DrawFrame(int delay)
+{
+	cursorPosition.X = 0;
+	cursorPosition.Y = 0;
+	SetConsoleCursorPosition(hwnd, cursorPosition);
+
+	SetConsoleTextAttribute(hwnd, color);
+	color += 16;
+
+	if (color > 224)
+	{
+		color = 144;
+	}
+	cout << ' ';
+
+	for (int i = 0; i < (consoleWide - 2); i++)
+	{
+		SetConsoleTextAttribute(hwnd, color);
+		color += 16;
+		if (color > 224)
+		{
+			color = 144;
+		}
+
+		cout << ' ';
+
+		Sleep(delay);
+	}
+
+	SetConsoleTextAttribute(hwnd, color);
+	color += 16;
+	if (color > 224)
+	{
+		color = 144;
+	}
+
+	cout << ' ';
+
+	cursorPosition.X = consoleWide - 1;
+	cursorPosition.Y = 1;
+
+	for (int i = 0; i < (consoleHeight - 2); i++)
+	{
+		SetConsoleCursorPosition(hwnd, cursorPosition);
+
+		SetConsoleTextAttribute(hwnd, color);
+		color += 16;
+		if (color > 224)
+		{
+			color = 144;
+		}
+
+		cout << ' ';
+		cursorPosition.Y++;
+
+		if (delay > 0)
+		{
+			Sleep(delay + 20);
+		}
+	}
+
+	SetConsoleCursorPosition(hwnd, cursorPosition);
+
+	SetConsoleTextAttribute(hwnd, color);
+	color += 16;
+	if (color > 224)
+	{
+		color = 144;
+	}
+
+	cout << ' ';
+
+	cursorPosition.X--;
+	SetConsoleCursorPosition(hwnd, cursorPosition);
+
+	for (int i = 0; i < (consoleWide - 2); i++)
+	{
+		SetConsoleTextAttribute(hwnd, color);
+		color += 16;
+		if (color > 224)
+		{
+			color = 144;
+		}
+
+		cout << ' ';
+		cursorPosition.X--;
+		SetConsoleCursorPosition(hwnd, cursorPosition);
+		Sleep(delay);
+	}
+
+	SetConsoleCursorPosition(hwnd, cursorPosition);
+
+	SetConsoleTextAttribute(hwnd, color);
+	color += 16;
+	if (color > 224)
+	{
+		color = 144;
+	}
+
+	cout << ' ';
+
+	cursorPosition.Y--;
+	SetConsoleCursorPosition(hwnd, cursorPosition);
+
+	for (int i = 0; i < (consoleHeight - 2); i++)
+	{
+		SetConsoleTextAttribute(hwnd, color);
+		color += 16;
+		if (color > 224)
+		{
+			color = 144;
+		}
+
+		cout << ' ' << endl;
+		cursorPosition.Y--;
+		SetConsoleCursorPosition(hwnd, cursorPosition);
+		if (delay > 0)
+		{
+			Sleep(delay + 20);
+		}
+	}
+
+	string digitalHappiness = "DigitalHappiness";
+
+	cursorPosition.X = (consoleWide / 2) - (digitalHappiness.length() / 2);
+	cursorPosition.Y = 0;
+	SetConsoleCursorPosition(hwnd, cursorPosition);
+
+	for (int i = 0; i < digitalHappiness.length(); i++)
+	{
+		SetConsoleTextAttribute(hwnd, color);
+		color += 16;
+		if (color > 224)
+		{
+			color = 144;
+		}
+
+		cout << digitalHappiness[i];
+		if (delay > 0)
+		{
+			Sleep(100);
+		}
+	}
+
+	SetConsoleTextAttribute(hwnd, color);
+	color += 16;
+	if (color > 224)
+	{
+		color = 144;
+	}
+
+	cout << (char)169;
 }

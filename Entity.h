@@ -2,6 +2,8 @@
 
 #include <Windows.h>
 
+#include "ConsoleHandler.h"
+
 struct Texture
 {
 	char image;
@@ -25,10 +27,11 @@ public:
 	virtual ~Entity();
 
 	void UpdateTexturePositions();
-	void Draw();
-	void CheckLimits();
-	bool CheckCollision(Entity entity);
+	void CheckLimits(ConsoleHandler& console);
+	bool CheckCollision(Texture** entity, COORD size);
 	COORD GetPosition() {return position;}
 	COORD GetSize() { return size; }
+
+	virtual void Draw(ConsoleHandler& console) = 0;
 };
 
