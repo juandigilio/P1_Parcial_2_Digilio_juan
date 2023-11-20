@@ -2,7 +2,8 @@
 
 void main()
 {
-	GamePlay* game = new GamePlay();
+	//GamePlay* game = new GamePlay();
+	GamePlay game =  GamePlay();
 
-	game->RunGame();
+	game.RunGame();
 }

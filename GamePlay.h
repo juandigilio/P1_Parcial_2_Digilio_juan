@@ -20,8 +20,6 @@ class GamePlay
 {
 private:
 
-	
-
 	ConsoleHandler* console;
 	Menu* menu;
 	Player* player;
