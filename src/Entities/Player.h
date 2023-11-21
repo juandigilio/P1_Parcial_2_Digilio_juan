@@ -24,6 +24,7 @@ public:
 	int GetAvailableLives() { return availableLives; }
 	int GetAvailableSteps() { return availableSteps; }
 	int GetTotalPoints() { return totalPoints; }
+	char GetInput() { return input; }
 	void SubstractLives() { availableLives--; }
 	void AddPoints(int points) { totalPoints += points; }
 	void AddLives(int lives);

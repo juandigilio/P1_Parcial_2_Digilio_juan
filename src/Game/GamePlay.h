@@ -6,6 +6,7 @@
 #include "Entity.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "HUD.h"
 
 #include <vector>
 
@@ -21,10 +22,12 @@ private:
 	Menu* menu;
 	Player* player;
 	vector<Entity*> entities;
+	HUD* hud;
 
 	int entitiesQnty = 10;
 
 	bool keepPlaying;
+	bool firstTime = true;
 
 
 public:
@@ -40,5 +43,6 @@ public:
 	void ResetPositions(Enemy* enemy, int i);
 	void ManageEnemies(Enemy* auxEnemy, Timer& timer, int i);
 	bool CheckPlayerVsEnemy(Enemy* auxEnemy, int i);
+	void CheckWiningCondition();
 };
 

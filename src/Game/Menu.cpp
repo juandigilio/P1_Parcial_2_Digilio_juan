@@ -155,7 +155,7 @@ void Menu::CheckMenuInput(ConsoleHandler& consoleData)
 {
 	string clean = "                               ";
 	bool keep = true;
-	int refreshRate = 500;
+	int refreshRate = 300;
 
 	while (keep)
 	{

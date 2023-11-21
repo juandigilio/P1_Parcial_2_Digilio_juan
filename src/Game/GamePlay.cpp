@@ -1,6 +1,7 @@
 #include "GamePlay.h"
 
 #include <iostream>
+#include <conio.h>
 
 #include "Collectables.h"
 #include "ExtraLife.h"
@@ -97,6 +98,8 @@ GamePlay::GamePlay()
 			}			
 		}
 	}
+
+	hud = new HUD(console);
 }
 
 GamePlay::~GamePlay()
@@ -138,6 +141,26 @@ void GamePlay::RunGame()
 			}
 		}
 	}
+
+	system("cls");
+
+	hud->ShowHud(console, player);
+	CheckWiningCondition();
+
+	char input = '0';
+
+	while (input != 27)
+	{
+		if (frameTimer->ElapsedTime(100))
+		{
+			console->DrawFrame(0);
+		}
+
+		if (_kbhit())
+		{
+			input = _getch();
+		}
+	}
 }
 
 void GamePlay::GameLoop()
@@ -153,29 +176,48 @@ void GamePlay::Update()
 {
 	player->Move(console);
 
-	for (int i = 0; i < entitiesQnty; i++)
+	if (player->GetAvailableSteps() <= 0 || player->GetAvailableLives() <= 0)
 	{
-		Enemy* auxEnemy = dynamic_cast<Enemy*>(entities[i]);
-		Collectables* auxCollectable = dynamic_cast<Collectables*>(entities[i]);
+		keepPlaying = false;
+	}
 
-		if (auxEnemy != nullptr)
+	if (keepPlaying)
+	{
+		for (int i = 0; i < entitiesQnty; i++)
 		{
-			ManageEnemies(auxEnemy, enemyTimer[i], i);
+			Enemy* auxEnemy = dynamic_cast<Enemy*>(entities[i]);
+			Collectables* auxCollectable = dynamic_cast<Collectables*>(entities[i]);
 
-			if (CheckPlayerVsEnemy(auxEnemy, i))
+			if (auxEnemy != nullptr)
 			{
-				break;
+				ManageEnemies(auxEnemy, enemyTimer[i], i);
+
+				if (CheckPlayerVsEnemy(auxEnemy, i))
+				{
+					hud->UpdateLives(console, player);
+					break;
+				}
+			}
+			else if (player->CheckCollision(auxCollectable->GetTexture(), auxCollectable->GetSize()))
+			{
+				if (auxCollectable->IsVisible())
+				{
+					CheckPowerUps(auxCollectable);
+				}
 			}
 		}
-		else if (player->CheckCollision(auxCollectable->GetTexture(), auxCollectable->GetSize()))
-		{
-			CheckPowerUps(entities[i]);
-		}
+
+		hud->UpdateHud(console, player);
 	}
 }
 
 void GamePlay::Draw()
 {
+	if (firstTime)
+	{
+		hud->ShowHud(console, player);
+	}
+
 	if (frameTimer->ElapsedTime(100))
 	{
 		console->DrawFrame(0);
@@ -279,5 +321,28 @@ bool GamePlay::CheckPlayerVsEnemy(Enemy* auxEnemy, int i)
 	}
 
 	return false;
+}
+
+void GamePlay::CheckWiningCondition()
+{
+	COORD cursor{ console->consoleWide / 2 - 5, console->consoleHeight / 2 };
+
+	SetConsoleCursorPosition(console->hwnd, cursor);
+
+	if (player->GetAvailableLives() == 0)
+	{
+		cout << "Perdiste!";
+		cursor.Y += 3;
+		SetConsoleCursorPosition(console->hwnd, cursor);
+		cout << "Salir-ESC";
+	}
+	else
+	{
+		cout << "Ganaste!";
+		cursor.Y += 3;
+		cursor.X--;
+		SetConsoleCursorPosition(console->hwnd, cursor);
+		cout << "Salir-ESC";
+	}
 }
 

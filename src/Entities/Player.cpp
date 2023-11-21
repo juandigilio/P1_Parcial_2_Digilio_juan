@@ -25,6 +25,11 @@ void Player::GetInput(ConsoleHandler* console)
 	if (_kbhit())
 	{
 		input = toupper(_getch());
+
+		if (input == 27)
+		{
+			availableLives = 0;
+		}
 	}
 }
 
@@ -128,6 +133,7 @@ void Player::CheckLimits(ConsoleHandler* console)
 	else
 	{
 		availableSteps--;
+		totalPoints += 10;
 	}
 }
 
