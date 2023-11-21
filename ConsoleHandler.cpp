@@ -6,8 +6,8 @@ using namespace std;
 
 ConsoleHandler::ConsoleHandler()
 {
-	consoleWide = 60;
-	consoleHeight = 40;
+	consoleWide = 50;
+	consoleHeight = 30;
 	color = 144;
 	hwnd = GetStdHandle(STD_OUTPUT_HANDLE);
 }
@@ -94,7 +94,7 @@ void ConsoleHandler::DrawFrame(int delay)
 	cursorPosition.X = consoleWide - 1;
 	cursorPosition.Y = 1;
 
-	for (int i = 0; i < (consoleHeight - 2); i++)
+	for (int i = 0; i < (consoleHeight - 3); i++)
 	{
 		SetConsoleCursorPosition(hwnd, cursorPosition);
 

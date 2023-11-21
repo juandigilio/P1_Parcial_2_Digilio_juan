@@ -139,21 +139,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Collectables.cpp" />
     <ClCompile Include="ConsoleHandler.cpp" />
+    <ClCompile Include="DoublePoints.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="ExtraLife.cpp" />
+    <ClCompile Include="ExtraPoints.cpp" />
     <ClCompile Include="GamePlay.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Collectables.h" />
     <ClInclude Include="ConsoleHandler.h" />
+    <ClInclude Include="DoublePoints.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="ExtraLife.h" />
+    <ClInclude Include="ExtraPoints.h" />
     <ClInclude Include="GamePlay.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

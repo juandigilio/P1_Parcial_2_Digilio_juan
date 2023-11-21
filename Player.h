@@ -12,18 +12,24 @@ private:
 	int availableLives;
 	int totalPoints;
 	int availableSteps;
+	char input;
 
 public:
 
 	Player(COORD position, COORD size, int color);
 	~Player();
 
-	void GetInput(ConsoleHandler& console);
+	void GetInput(ConsoleHandler* console);
 	bool UpdateStatus() { return availableLives && availableSteps; };
 	int GetAvailableLives() { return availableLives; }
 	int GetAvailableSteps() { return availableSteps; }
 	int GetTotalPoints() { return totalPoints; }
+	void SubstractLives() { availableLives--; }
+	void AddPoints(int points) { totalPoints += points; }
+	void AddLives(int lives);
 
-	void Draw(ConsoleHandler& console);
+	void LoadTexture();
+	void Move(ConsoleHandler* console);
+	void CheckLimits(ConsoleHandler* console);
 };
 

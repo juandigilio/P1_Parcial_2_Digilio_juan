@@ -16,7 +16,8 @@ class Entity
 {
 protected:
 
-	COORD position;
+	COORD actualPos;
+	COORD lastPos;
 	COORD size;
 	Texture** texture;
 
@@ -27,11 +28,17 @@ public:
 	virtual ~Entity();
 
 	void UpdateTexturePositions();
-	void CheckLimits(ConsoleHandler& console);
+	void Draw(ConsoleHandler* console);
+	void Clean(ConsoleHandler* console);
+	void SetPosition(ConsoleHandler* console, COORD position);
 	bool CheckCollision(Texture** entity, COORD size);
-	COORD GetPosition() {return position;}
+	COORD GetPosition() {return actualPos;}
 	COORD GetSize() { return size; }
+	Texture** GetTexture() { return texture; }
 
-	virtual void Draw(ConsoleHandler& console) = 0;
+
+	virtual void LoadTexture() = 0;
+	virtual void Move(ConsoleHandler* console) = 0;
+	virtual void CheckLimits(ConsoleHandler* console) = 0;
 };
 

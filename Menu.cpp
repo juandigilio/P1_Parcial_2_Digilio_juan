@@ -5,6 +5,7 @@
 #include <conio.h>
 
 
+
 using namespace std;
 
 Menu::Menu()
@@ -131,7 +132,7 @@ void Menu::ShowInstructions(ConsoleHandler& consoleData)
 	SetConsoleTextAttribute(consoleData.hwnd, 14);
 	cout << inst1;
 
-	while (input != 27)
+	while (consoleData.userInput != 27)
 	{
 		if (_kbhit())
 		{
@@ -165,21 +166,20 @@ void Menu::CheckMenuInput(ConsoleHandler& consoleData)
 		{
 			SetConsoleTextAttribute(consoleData.hwnd, 8);
 
-			input = _getch();
+			consoleData.userInput = toupper(_getch());
 
-			if (input != '1' && input != '2' && input != 27)
+			if (consoleData.userInput != '1' && consoleData.userInput != '2' && consoleData.userInput != 27)
 			{
 
 			}
 			else
 			{
-				switch (input)
+				switch (consoleData.userInput)
 				{
 				case '1':
 				{
 					keep = false;
 					system("cls");
-					//PlayGame(consoleData, gameData);
 					break;
 				}
 				case '2':

@@ -2,6 +2,16 @@
 
 #include <Windows.h>
 
+enum Color
+{
+	grey = 8,
+	blue = 9,
+	green = 10,
+	red = 12,
+	violet = 13,
+	yellow = 14,
+	white = 15,
+};
 
 class ConsoleHandler
 {
@@ -16,6 +26,7 @@ public:
 	int consoleWide;
 	int consoleHeight;
 	int color;
+	char userInput;
 
 	COORD menu1;
 	COORD menu2;

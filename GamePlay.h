@@ -1,39 +1,44 @@
 #pragma once
 
+#include "Timer.h"
 #include "ConsoleHandler.h"
 #include "Menu.h"
 #include "Entity.h"
 #include "Player.h"
+#include "Enemy.h"
 
-enum Color
-{
-	grey = 8,
-	blue = 9,
-	green = 10,
-	red = 12,
-	violet = 13,
-	yellow = 14,
-	white = 15,
-};
+#include <vector>
+
+using namespace std;
 
 class GamePlay
 {
 private:
 
+	Timer* frameTimer;
+	Timer enemyTimer[7];
 	ConsoleHandler* console;
 	Menu* menu;
 	Player* player;
-	Entity* entities;
+	vector<Entity*> entities;
+
+	int entitiesQnty = 10;
+
+	bool keepPlaying;
+
 
 public:
-
-	
 
 	GamePlay();
 	~GamePlay();
 
 	void RunGame();
-	void GameLoop(Player& player, ConsoleHandler& console);
-	void Draw(Player& player, ConsoleHandler& console);
+	void GameLoop();
+	void Update();
+	void Draw();
+	void CheckPowerUps(Entity* entity);
+	void ResetPositions(Enemy* enemy, int i);
+	void ManageEnemies(Enemy* auxEnemy, Timer& timer, int i);
+	bool CheckPlayerVsEnemy(Enemy* auxEnemy, int i);
 };
 

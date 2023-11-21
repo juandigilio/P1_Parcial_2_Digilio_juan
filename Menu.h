@@ -7,7 +7,6 @@ class Menu
 private:
 
 	int refreshRate;
-	char input;
 	bool mainMenu;
 
 public:

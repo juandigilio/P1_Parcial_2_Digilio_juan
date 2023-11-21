@@ -12,7 +12,7 @@ Player::Player(COORD position, COORD size, int color) : Entity (position, size, 
 	maxLives = 6;
 	availableLives = 3;
 	totalPoints = 0;
-	availableSteps = 100;
+	availableSteps = 300;
 }
 
 Player::~Player()
@@ -20,51 +20,114 @@ Player::~Player()
 	std::cout << "Ta lueguito" << std::endl;
 }
 
-void Player::GetInput(ConsoleHandler& console)
+void Player::GetInput(ConsoleHandler* console)
 {
 	if (_kbhit())
 	{
-		char key = _getch();
-
-		if (key == 24)
-		{
-			position.Y++;
-
-			CheckLimits(console);
-		}
-		if (key == 25)
-		{
-			position.Y--;
-
-			CheckLimits(console);
-		}
-		if (key == 26)
-		{
-			position.X++;
-
-			CheckLimits(console);
-		}
-		if (key == 27)
-		{
-			position.X--;
-
-			CheckLimits(console);
-		}
+		input = toupper(_getch());
 	}
 }
 
-void Player::Draw(ConsoleHandler& console)
+void Player::AddLives(int lives)
 {
-	COORD cursorPos = position;
+	availableLives += lives;
+
+	if (availableLives > 6)
+	{
+		availableLives = 6;
+	}
+}
+
+void Player::LoadTexture()
+{
+	char textureToLoad[3][3] = {
+	{' ','O',' '},
+	{'/','|',92},
+	{'/',' ',92},
+	};
 
 	for (int i = 0; i < size.X; i++)
 	{
 		for (int j = 0; j < size.Y; j++)
 		{
-			SetConsoleCursorPosition(console.hwnd, texture[i][j].position);
-			cout << texture[i][j].image;
-		}
+			texture[i][j].image = textureToLoad[i][j];
 
-		cursorPos.Y++;
+			if (texture[i][j].image != ' ')
+			{
+				texture[i][j].isPainted = true;
+			}
+		}
+	}
+
+	UpdateTexturePositions();
+}
+
+void Player::Move(ConsoleHandler* console)
+{
+	lastPos = actualPos;
+
+	if (input == 'S')
+	{
+		actualPos.Y++;
+
+		CheckLimits(console);
+
+		UpdateTexturePositions();
+	}
+	else if (input == 'W')
+	{
+		actualPos.Y--;
+
+		CheckLimits(console);
+
+		UpdateTexturePositions();
+	}
+	else if (input == 'D')
+	{
+		actualPos.X++;
+
+		CheckLimits(console);
+
+		UpdateTexturePositions();
+	}
+	else if (input == 'A')
+	{
+		actualPos.X--;
+
+		CheckLimits(console);
+
+		UpdateTexturePositions();
+	}
+
+	input = ' ';
+}
+
+void Player::CheckLimits(ConsoleHandler* console)
+{
+	int topLimit = 1;
+	int bottomLimit = console->consoleHeight - size.Y - 2;
+	int leftLimit = 1;
+	int rightLimit = console->consoleWide - size.X - 1;
+
+	if (actualPos.Y > bottomLimit)
+	{
+		actualPos.Y = bottomLimit;
+	}
+	else if (actualPos.Y < topLimit)
+	{
+		actualPos.Y = topLimit;
+	}
+	else if (actualPos.X > rightLimit)
+	{
+		actualPos.X = rightLimit;
+	}
+	else if (actualPos.X < leftLimit)
+	{
+		actualPos.X = leftLimit;
+	}
+	else
+	{
+		availableSteps--;
 	}
 }
+

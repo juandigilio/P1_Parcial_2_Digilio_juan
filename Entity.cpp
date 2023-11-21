@@ -6,9 +6,11 @@
 
 using namespace std;
 
+
 Entity::Entity(COORD position, COORD size, int color)
 {
-	this->position = position;
+	this->actualPos = position;
+	lastPos = actualPos;
 	this->size = size;
 	
 	texture = new Texture* [size.X];
@@ -44,7 +46,7 @@ Entity::~Entity()
 
 void Entity::UpdateTexturePositions()
 {
-	COORD aux = position;
+	COORD aux = actualPos;
 
 	for (int i = 0; i < size.X; i++)
 	{
@@ -54,34 +56,62 @@ void Entity::UpdateTexturePositions()
 			texture[i][j].position.Y = aux.Y;
 			aux.X++;
 		}
-		aux.X = position.X;
+		aux.X = actualPos.X;
 		aux.Y++;
 	}
 }
 
-void Entity::CheckLimits(ConsoleHandler& console)
+void Entity::Draw(ConsoleHandler* console)
 {
-	int topLimit = 1;
-	int bottomLimit = console.consoleHeight - size.Y - 1;
-	int leftLimit = 1;
-	int rightLimit = console.consoleWide - size.X - 1;
+	Clean(console);
 
-	if (position.Y > bottomLimit)
+	COORD cursorPos = actualPos;
+
+	SetConsoleTextAttribute(console->hwnd, texture[0][0].color);
+
+	for (int i = 0; i < size.X; i++)
 	{
-		position.Y = bottomLimit;
+		SetConsoleCursorPosition(console->hwnd, cursorPos);
+
+		for (int j = 0; j < size.Y; j++)
+		{
+			cout << texture[i][j].image;
+		}
+
+		cursorPos.Y++;
 	}
-	if (position.Y < topLimit)
+}
+
+void Entity::Clean(ConsoleHandler* console)
+{
+	COORD cursorPos;
+	cursorPos.X = lastPos.X;
+	cursorPos.Y = lastPos.Y;
+
+	SetConsoleTextAttribute(console->hwnd, texture[0][0].color);
+
+	for (int i = 0; i < size.X; i++)
 	{
-		position.Y = topLimit;
+		SetConsoleCursorPosition(console->hwnd, cursorPos);
+
+		for (int j = 0; j < size.Y; j++)
+		{
+			cout << ' ';
+		}
+
+		cursorPos.Y++;
 	}
-	if (position.X > rightLimit)
-	{
-		position.X = rightLimit;
-	}
-	if (position.X < leftLimit)
-	{
-		position.X = leftLimit;
-	}
+
+	lastPos = actualPos;
+}
+
+void Entity::SetPosition(ConsoleHandler* console, COORD position)
+{
+	actualPos = position;
+
+	Clean(console);
+
+	UpdateTexturePositions();
 }
 
 bool Entity::CheckCollision(Texture** entity, COORD entitySize)
