@@ -13,7 +13,6 @@ GamePlay::GamePlay()
 	srand(time(nullptr));
 
 	frameTimer = new Timer();
-	//enemyTimer = new Timer[7];
 
 	console = new ConsoleHandler();
 	console->SetConsoleFont(20, 25);
@@ -82,19 +81,20 @@ GamePlay::GamePlay()
 			{
 				auxExtraLife->LoadTexture();
 				auxExtraLife->CheckLimits(console);
+				auxExtraLife->UpdateTexturePositions();
 			}
 			else if (auxExtraPoints != nullptr)
 			{
 				auxExtraPoints->LoadTexture();
 				auxExtraPoints->CheckLimits(console);
+				auxExtraPoints->UpdateTexturePositions();
 			}
 			else if (auxDoublePoints != nullptr)
 			{
 				auxDoublePoints->LoadTexture();
 				auxDoublePoints->CheckLimits(console);
-			}
-
-			
+				auxDoublePoints->UpdateTexturePositions();
+			}			
 		}
 	}
 }
@@ -102,7 +102,6 @@ GamePlay::GamePlay()
 GamePlay::~GamePlay()
 {
 	delete frameTimer;
-	//delete& enemyTimer;
 	delete console;
 	delete menu;
 	delete player;

@@ -18,6 +18,33 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Entities\Collectables\Collectables.h" />
+    <ClInclude Include="src\Entities\Collectables\DoublePoints.h" />
+    <ClInclude Include="src\Entities\Collectables\ExtraLife.h" />
+    <ClInclude Include="src\Entities\Collectables\ExtraPoints.h" />
+    <ClInclude Include="src\Entities\Enemy.h" />
+    <ClInclude Include="src\Entities\Entity.h" />
+    <ClInclude Include="src\Entities\Player.h" />
+    <ClInclude Include="src\Game\ConsoleHandler.h" />
+    <ClInclude Include="src\Game\GamePlay.h" />
+    <ClInclude Include="src\Game\Menu.h" />
+    <ClInclude Include="src\Game\Timer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Entities\Collectables\Collectables.cpp" />
+    <ClCompile Include="src\Entities\Collectables\DoublePoints.cpp" />
+    <ClCompile Include="src\Entities\Collectables\ExtraLife.cpp" />
+    <ClCompile Include="src\Entities\Collectables\ExtraPoints.cpp" />
+    <ClCompile Include="src\Entities\Enemy.cpp" />
+    <ClCompile Include="src\Entities\Entity.cpp" />
+    <ClCompile Include="src\Entities\Player.cpp" />
+    <ClCompile Include="src\Game\ConsoleHandler.cpp" />
+    <ClCompile Include="src\Game\GamePlay.cpp" />
+    <ClCompile Include="src\Game\Menu.cpp" />
+    <ClCompile Include="src\Game\Timer.cpp" />
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -116,6 +143,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)src\Entities;$(SolutionDir)src\Entities\Collectables;$(SolutionDir)src\Game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +158,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)src\Entities;$(SolutionDir)src\Entities\Collectables;$(SolutionDir)src\Game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,33 +167,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Collectables.cpp" />
-    <ClCompile Include="ConsoleHandler.cpp" />
-    <ClCompile Include="DoublePoints.cpp" />
-    <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="ExtraLife.cpp" />
-    <ClCompile Include="ExtraPoints.cpp" />
-    <ClCompile Include="GamePlay.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Timer.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Collectables.h" />
-    <ClInclude Include="ConsoleHandler.h" />
-    <ClInclude Include="DoublePoints.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="ExtraLife.h" />
-    <ClInclude Include="ExtraPoints.h" />
-    <ClInclude Include="GamePlay.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Timer.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
