@@ -109,9 +109,9 @@ GamePlay::~GamePlay()
 	delete menu;
 	delete player;
 	
-	for (auto& object : entities) 
+	for (auto& entity : entities) 
 	{
-		delete object;
+		delete entity;
 	}
 
 	entities.clear();
